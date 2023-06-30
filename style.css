@@ -178,7 +178,7 @@ section ul li div:nth-child(2){
     top: 80vh;
 }
 
-@media (height < 500px) {
+@media (height < 640px) {
     header{
         display: none;
     }
