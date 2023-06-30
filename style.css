@@ -178,7 +178,9 @@ section ul li div:nth-child(2){
     top: 80vh;
 }
 
-input{
+input[type="text"]{
+    background-color: transparent;
+    border: none;
     display: none;
 }
 
