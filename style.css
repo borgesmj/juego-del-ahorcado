@@ -181,7 +181,7 @@ section ul li div:nth-child(2){
 input[type="text"]{
     background-color: transparent;
     border: none;
-    display: none;
+    color: transparent;
 }
 
 /* @media (min-width: 768px) { ... }
