@@ -178,6 +178,10 @@ section ul li div:nth-child(2){
     top: 80vh;
 }
 
+input{
+    display: none;
+}
+
 @media (height < 640px) {
     header{
         display: none;
