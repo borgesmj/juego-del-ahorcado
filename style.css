@@ -184,13 +184,5 @@ input[type="text"]{
     display: none;
 }
 
-@media (height < 640px) {
-    header{
-        display: none;
-    }
-    #counterContainer{
-        display: none;
-    }
-}
 /* @media (min-width: 768px) { ... }
 @media (min-width: 1024px) { ... } */
