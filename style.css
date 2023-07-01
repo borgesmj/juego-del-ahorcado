@@ -179,10 +179,17 @@ section ul li div:nth-child(2){
 }
 
 input[type="text"]{
-    background-color: transparent;
+    background-color: red;
     border: none;
     color: transparent;
+    position: fixed;
+    top: 0;
 }
+
+.hide{
+    display: none;
+}
+
 
 @media (min-width: 768px) { 
     header h1{
