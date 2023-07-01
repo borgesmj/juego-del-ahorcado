@@ -71,6 +71,8 @@ document.querySelector('#app').innerHTML = `
         </form>
 `
 
+console.log('testing keyboard button, esconder header')
+
 document.querySelector('#app').addEventListener('click', () =>{
     console.log('app')
 })
