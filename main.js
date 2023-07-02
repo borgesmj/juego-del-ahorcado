@@ -71,9 +71,10 @@ document.querySelector('#app').innerHTML = `
         </form>
 `
 
-console.log('testing keyboard button, esconder header')
+console.log('testing keyboard button, mostrar hide')
 
-document.querySelector('#app').addEventListener('click', () =>{
+document.querySelector('#dibujo').addEventListener('click', () =>{
+    document.querySelector('header').classList.remove('hide')
     console.log('app')
 })
 
