@@ -63,7 +63,7 @@ document.querySelector('#app').innerHTML = `
         </form>
 `
 
-console.log('update main, esconder la palabra y el muneco')
+console.log('update main, revelar el muñeco, contar letras fallidas, comenzar a revelar letras correctas')
 
 
 // =============================================================================================================================
