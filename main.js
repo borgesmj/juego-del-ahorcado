@@ -1,6 +1,11 @@
+import { palabras } from './palabras.js'
 
 
 
+let winCounter = 0;
+let failCounter = 0; 
+let nuevaPalabra = ''
+let nuevaPalabraDividida = []
 
 document.querySelector('#app').innerHTML = `
         <header class='header'>
@@ -11,11 +16,11 @@ document.querySelector('#app').innerHTML = `
             <ul class="counters">
                 <li class="counter">
                     <div class="counterTitle">Partidas Ganadas</div>
-                    <div class="counterNumber">4</div>
+                    <div class="counterNumber">${winCounter}</div>
                 </li>
                 <li class="counter">
                     <div class="counterTitle">Partidas Perdidas</div>
-                    <div class="counterNumber">2</div>
+                    <div class="counterNumber">${failCounter}</div>
                 </li>
                 <li class="counter">
                     <div class="counterTitle">Letras Usadas</div>
@@ -31,16 +36,7 @@ document.querySelector('#app').innerHTML = `
                 </li>
             </ul>
         </section>
-        <section id="wordContainer">
-            <div>S</div>
-            <div>A</div>
-            <div>M</div>
-            <div>A</div>
-            <div>N</div>
-            <div>t</div>
-            <div>H</div>
-            <div>A</div>
-        </section>
+        <section id="wordContainer"></section>
         <section id="dibujo">
                 <div class="top"></div>
                 <div class="doll">
@@ -73,11 +69,45 @@ document.querySelector('#app').innerHTML = `
 
 console.log('testing keyboard button, mostrar hide')
 
+
+// =============================================================================================================================
+// 1. Probamos funcionalidad al boton de teclado en la version de pantallas de móviles
+// =============================================================================================================================
+
 document.querySelector('#dibujo').addEventListener('click', () =>{
     document.querySelector('header').classList.remove('hide')
-    console.log('app')
 })
 
 document.querySelector('#keyboardBtn').addEventListener('click', () => {
     document.querySelector('header').classList.add('hide')
 })
+
+// =============================================================================================================================
+// 2. Cargamos una palabra nueva
+// =============================================================================================================================
+// 2.1.- Al cargar el documento, los contadores iran a 0
+// 2.2.- Se carga la nueva palabra
+// 2.3.- Se divide la palabra en letras
+// 2.4.- La mostramos en pantalla, con las letras ocultas
+// 2.5.- Escondemos el muñeco
+        function iniciarNuevaPalabra(){
+            nuevaPalabra = palabras[Math.floor(Math.random() * palabras.length)]
+            
+            nuevaPalabraDividida = nuevaPalabra.split('')
+            
+            document.querySelector('#wordContainer').innerHTML = `
+                    ${nuevaPalabraDividida.map((item) => `
+                            <div class='letra ${item}'>*</div>
+                            
+                            `).join('')}
+            `
+
+            const partesDelMuneco = document.querySelectorAll('.head, .leg, .arm, .torso')
+
+            partesDelMuneco.forEach((parte) => {
+                parte.classList.add('hide');
+            })
+
+        }
+
+        iniciarNuevaPalabra()

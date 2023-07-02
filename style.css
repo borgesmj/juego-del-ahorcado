@@ -179,7 +179,7 @@ section ul li div:nth-child(2){
 }
 
 input[type="text"]{
-    background-color: red;
+    background-color: transparent;
     border: none;
     color: transparent;
     position: fixed;
