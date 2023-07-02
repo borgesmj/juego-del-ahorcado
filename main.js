@@ -4,8 +4,12 @@ import { palabras } from './palabras.js'
 
 let winCounter = 0;
 let failCounter = 0; 
-let nuevaPalabra = ''
-let nuevaPalabraDividida = []
+let nuevaPalabra = '';
+let nuevaPalabraDividida = [];
+let letrasUsadas = [];
+let letrasErradas = [];
+let letrasCorrectas = [];
+let nuevaLetra = ''
 
 document.querySelector('#app').innerHTML = `
         <header class='header'>
@@ -16,23 +20,15 @@ document.querySelector('#app').innerHTML = `
             <ul class="counters">
                 <li class="counter">
                     <div class="counterTitle">Partidas Ganadas</div>
-                    <div class="counterNumber">${winCounter}</div>
+                    <div class="counterNumber wins">${winCounter}</div>
                 </li>
                 <li class="counter">
                     <div class="counterTitle">Partidas Perdidas</div>
-                    <div class="counterNumber">${failCounter}</div>
+                    <div class="counterNumber fails">${failCounter}</div>
                 </li>
                 <li class="counter">
                     <div class="counterTitle">Letras Usadas</div>
-                    <div class="counterLetters">
-                        <div>A</div>
-                        <div>B</div>
-                        <div>C</div>
-                        <div>D</div>
-                        <div>F</div>
-                        <div>G</div>
-
-                    </div>
+                    <div class="counterLetters"></div>
                 </li>
             </ul>
         </section>
@@ -67,7 +63,7 @@ document.querySelector('#app').innerHTML = `
         </form>
 `
 
-console.log('testing keyboard button, mostrar hide')
+console.log('update main, esconder la palabra y el muneco')
 
 
 // =============================================================================================================================
@@ -108,6 +104,126 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
                 parte.classList.add('hide');
             })
 
+            letrasUsadas = [];
+            letrasCorrectas = [];
+            letrasErradas = []
+
+            document.querySelector('.counterLetters').innerHTML = `
+                ${letrasErradas.map ((item) => `<div>${item}</div>`).join('')}
+                `
+        }
+
+// =============================================================================================================================
+// 3. Captar la entrada del teclado
+// =============================================================================================================================
+// 3.1 Ignoramos teclas numericas
+// 3.2 Ignoramos teclas especiales
+        document.addEventListener('keydown', (event) => {
+            const regex = /[a-zA-Z]/g
+            const teclasEspeciales = [
+                'Alt',
+                'Control',
+                'Home',
+                'End',
+                'PageUp',
+                'PageDown',
+                'Backspace',
+                'Tab',
+                'CapsLock',
+                'Shift',
+                'Enter',
+                'space'
+                ];
+
+            nuevaLetra = event.key
+
+            if (teclasEspeciales.includes(event.key) || event.key.startsWith('F') || event.key.startsWith('arrow')){
+                return
+            }
+
+            if (regex.test(event.key)){
+                evaluarLetraUsada()
+            } else {
+                return
+            }
+            
+        })
+
+// =============================================================================================================================
+// 4. Evaluar que la letra introducida no se haya usado antes
+// =============================================================================================================================
+
+        function evaluarLetraUsada(){
+            if (letrasUsadas.includes(nuevaLetra)){
+                return
+            } else {
+                letrasUsadas.push(nuevaLetra)
+                evaluarLetraIntroducida()
+            }
+        }
+
+// =============================================================================================================================
+// 4. Evaluar que la letra introducida sea la correcta o no
+// =============================================================================================================================
+
+        function evaluarLetraIntroducida(){
+            if (nuevaPalabraDividida.includes(nuevaLetra)){
+                revelarLetra()
+            } else {
+                letrasErradas.push(nuevaLetra)
+                document.querySelector('.counterLetters').innerHTML = `
+                ${letrasErradas.map ((item) => `<div>${item}</div>`).join('')}
+                `
+                guardarLetraErrada()
+                dibujarMuneco()
+            }
+        }
+
+// =============================================================================================================================
+// 5. Guardar intentos fallidos, dibujar el muñeco y contar hasta 6 intentos, al llegar a 6, la partida estará perdida
+// =============================================================================================================================
+
+        function guardarLetraErrada(){
+            if(letrasErradas.length === 6){
+                               
+                failCounter = failCounter + 1
+                
+                document.querySelector('.fails').innerHTML = `
+                ${failCounter}
+                `
+                revelarPalabraCorrecta()
+            }
+        }
+
+        function revelarPalabraCorrecta(){
+
+            document.querySelector('#wordContainer').innerHTML = `
+            ${nuevaPalabraDividida.map((item) => `<div class='letra ${item}'>${item}</div>`).join('')}
+            `;
+
+            setTimeout(() => {
+                iniciarNuevaPalabra()
+            }, 2000);
+        }
+
+        function dibujarMuneco(){
+            document.querySelector('#dibujo .hide').classList.remove('hide')
+        }
+// =============================================================================================================================
+// 6. Revelar la letra correcta, contar las tetras, revelar al ganador
+// =============================================================================================================================
+
+        function revelarLetra(){
+            nuevaPalabraDividida.map( (item, index) => {
+                if (item === nuevaLetra){
+                    let elemento = document.querySelector(`.letra:nth-child(${index+1})`);
+                    elemento.innerHTML = item
+                    letrasCorrectas.push(item)
+                    console.log(letrasCorrectas)
+                }
+            })
+
+            console.log(letrasCorrectas.length === nuevaPalabraDividida.length)
         }
 
         iniciarNuevaPalabra()
