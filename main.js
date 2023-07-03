@@ -11,6 +11,23 @@ let letrasErradas = [];
 let letrasCorrectas = [];
 let nuevaLetra = ''
 
+const regex = /[a-zA-Z]/g
+const teclasEspeciales = [
+    'Alt',
+    'Control',
+    'Home',
+    'End',
+    'PageUp',
+    'PageDown',
+    'Backspace',
+    'Tab',
+    'CapsLock',
+    'Shift',
+    'Enter',
+    'space'
+    ];
+
+
 document.querySelector('#app').innerHTML = `
         <header class='header'>
             <h1>Juego del ahorcado</h1>
@@ -63,7 +80,7 @@ document.querySelector('#app').innerHTML = `
         </form>
 `
 
-console.log('update main, revelar el muñeco, contar letras fallidas, comenzar a revelar letras correctas')
+console.log('update main, realizando tests con el input en version movil')
 
 
 // =============================================================================================================================
@@ -111,6 +128,8 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
             document.querySelector('.counterLetters').innerHTML = `
                 ${letrasErradas.map ((item) => `<div>${item}</div>`).join('')}
                 `
+
+            console.log(document.querySelector('#keyboard'))
         }
 
 // =============================================================================================================================
@@ -119,21 +138,6 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
 // 3.1 Ignoramos teclas numericas
 // 3.2 Ignoramos teclas especiales
         document.addEventListener('keydown', (event) => {
-            const regex = /[a-zA-Z]/g
-            const teclasEspeciales = [
-                'Alt',
-                'Control',
-                'Home',
-                'End',
-                'PageUp',
-                'PageDown',
-                'Backspace',
-                'Tab',
-                'CapsLock',
-                'Shift',
-                'Enter',
-                'space'
-                ];
 
             nuevaLetra = event.key
 
@@ -223,7 +227,36 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
                 }
             })
 
-            console.log(letrasCorrectas.length === nuevaPalabraDividida.length)
+            if(letrasCorrectas.length === nuevaPalabraDividida.length){
+                winCounter = winCounter + 1
+                document.querySelector('.wins').innerHTML = winCounter
+                setTimeout(() => {
+                    iniciarNuevaPalabra()
+                }, 1000);
+            }
         }
+
+// =============================================================================================================================
+//  7. Usando el input para las versiones moviles
+// =============================================================================================================================
+
+            document.querySelector('#keyboard').addEventListener('input', (event)=>{
+                console.log(event.data)
+                
+                nuevaLetra = event.data
+
+            if (teclasEspeciales.includes(event.data) || event.data.startsWith('F') || event.data.startsWith('arrow')){
+                return
+            }
+
+            if (regex.test(event.data)){
+                evaluarLetraUsada()
+            } else {
+                return
+            }
+
+            })
+
+
 
         iniciarNuevaPalabra()
