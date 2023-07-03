@@ -1,5 +1,5 @@
 import { palabras } from './palabras.js'
-
+import { letras } from './letras.js'
 
 
 let winCounter = 0;
@@ -10,6 +10,7 @@ let letrasUsadas = [];
 let letrasErradas = [];
 let letrasCorrectas = [];
 let nuevaLetra = ''
+let keyboardOpen = false
 
 const regex = /[a-zA-Z]/g
 const teclasEspeciales = [
@@ -66,17 +67,14 @@ document.querySelector('#app').innerHTML = `
                 </div>
         </section>
         <form id="btnPanel">
-            <div id="sherBtn" class="button share">
-                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                    <path d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z"/>
-                </svg>
+            <div id="shareBtn" class="button share">
+                <i class="fa-sharp fa-solid fa-share-nodes"></i>
             </div>
-            <label for="keyboard" id="keyboardBtn" class="button keyboard">
-                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                    <path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm16 64h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V144c0-8.8 7.2-16 16-16zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm16 80h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16zm80-176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V144zm16 80h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zM160 336c0-8.8 7.2-16 16-16H400c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V336zM272 128h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V144c0-8.8 7.2-16 16-16zM256 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM368 128h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V144c0-8.8 7.2-16 16-16zM352 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V240zM464 128h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H464c-8.8 0-16-7.2-16-16V144c0-8.8 7.2-16 16-16zM448 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H464c-8.8 0-16-7.2-16-16V240zm16 80h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H464c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16z"/>
-                </svg>
+            <label for="keyboard" id="keyboardBtn" class="button buttonDown">
+                <i class="fa-solid fa-keyboard"></i>               
             </label>
-            <input type="text" id="keyboard">
+            <input type="text" id="keyboardInput">
+            <div id='keyboardPanel'></div>
         </form>
 `
 
@@ -87,13 +85,39 @@ console.log('update main, realizando tests con el input en version movil v2')
 // 1. Probamos funcionalidad al boton de teclado en la version de pantallas de móviles
 // =============================================================================================================================
 
-document.querySelector('#dibujo').addEventListener('click', () =>{
-    document.querySelector('header').classList.remove('hide')
-})
 
-document.querySelector('#keyboardBtn').addEventListener('click', () => {
-    document.querySelector('header').classList.add('hide')
-})
+
+        document.querySelector('#keyboardBtn').addEventListener('click', () => {
+            keyboardOpen = !keyboardOpen
+            activarTeclado()
+        })
+
+        function activarTeclado(){
+            if(keyboardOpen){
+                document.querySelector('.header').classList.add('hide')
+                document.querySelector('#keyboardBtn .fa-solid').classList.remove('fa-keyboard')
+                document.querySelector('#keyboardBtn .fa-solid').classList.add('fa-xmark')
+                document.querySelector('#shareBtn').classList.add('hide')
+                document.querySelector('#keyboardBtn').classList.remove('buttonDown')
+                document.querySelector('#keyboardBtn').classList.add('buttonUp')
+                document.querySelector('#keyboardPanel').innerHTML = `
+                    ${letras.map((item) => 
+                        `<div class="letterBtn" id=${item.id}>${item.content}</div>`
+                    ).join('')}
+                    `
+                capturarLetraTecladoVirtual()
+            } else {
+                document.querySelector('.header').classList.remove('hide')
+                document.querySelector('#keyboardBtn .fa-solid').classList.remove('fa-xmark')
+                document.querySelector('#keyboardBtn .fa-solid').classList.add('fa-keyboard')
+                document.querySelector('#keyboardBtn').classList.remove('buttonUp')
+                document.querySelector('#keyboardBtn').classList.add('buttonDown')
+                document.querySelector('#keyboardPanel').innerHTML = ""
+
+            }
+        }
+ 
+
 
 // =============================================================================================================================
 // 2. Cargamos una palabra nueva
@@ -236,26 +260,23 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
         }
 
 // =============================================================================================================================
-//  7. Usando el input para las versiones moviles
+//  7. Versiones moviles con un teclado digital
 // =============================================================================================================================
 
-            document.querySelector('#keyboard').addEventListener('input', (event)=>{
-                console.log(event.data)
-                
-                nuevaLetra = event.data.toUpperCase()
-
-            if (teclasEspeciales.includes(event.data) || event.data.startsWith('F') || event.data.startsWith('arrow')){
-                return
-            }
-
-            if (regex.test(event.data)){
+        function capturarLetraTecladoVirtual() {
+            const letterBtns = document.querySelectorAll('.letterBtn');
+        
+            letterBtns.forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                nuevaLetra = event.target.textContent;
                 evaluarLetraUsada()
-            } else {
-                return
-            }
+            });
+            });
+        }
 
-            })
-
+        console.log(document.querySelector('#keyboardInput'))
+        
 
 
         iniciarNuevaPalabra()
+

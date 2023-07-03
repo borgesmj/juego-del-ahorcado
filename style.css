@@ -163,23 +163,52 @@ section ul li div:nth-child(2){
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
 }
 
-#btnPanel .button svg{
-    height: 30px;
+.fa-solid{
+    font-size: 2em;
 }
 
-#keyboardBtn{
-    position: fixed;
-    left: 280px;
-    top: 80vh;
-}
-
-#sherBtn{
+#shareBtn{
     position: fixed;
     left: 40px;
     top: 80vh;
+}
+
+.buttonDown{
+    position: fixed;
+    left: 300px;
+    top: 80vh;
+}
+
+.buttonUp{
+    top: 58vh;
+    position: fixed;
+    left: 300px;
+}
+
+#keyboardPanel{
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-column-gap: 1px;
+    grid-row-gap: 1px;
+    padding: 10px;
+    max-width: 95vw;
+    background-color: white;
+}
+
+.letterBtn{
+    background-color: aquamarine;
+    font-size: 2em;
+    border: 1px solid black;
+    border-radius: 20px;
 }
 
 input[type="text"]{
@@ -221,10 +250,16 @@ input[type="text"]{
         width: 50px; 
     }
 
-    #keyboardBtn {
+    .buttonDown{
         position: fixed;
-        left: 660px;
+        left: 620px;
         top: 80vh;
+    }
+
+    .buttonUp{
+        top: 65vh;
+        position: fixed;
+        left: 620px;
     }
  }
 @media (min-width: 1024px) { 
