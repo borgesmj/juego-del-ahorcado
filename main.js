@@ -78,7 +78,6 @@ document.querySelector('#app').innerHTML = `
         </form>
 `
 
-console.log('update main, realizando tests con el input en version movil v2')
 
 
 // =============================================================================================================================
@@ -246,7 +245,6 @@ console.log('update main, realizando tests con el input en version movil v2')
                     let elemento = document.querySelector(`.letra:nth-child(${index+1})`);
                     elemento.innerHTML = item
                     letrasCorrectas.push(item)
-                    console.log(letrasCorrectas)
                 }
             })
 
@@ -274,7 +272,6 @@ console.log('update main, realizando tests con el input en version movil v2')
             });
         }
 
-        console.log(document.querySelector('#keyboardInput'))
         
 
 

@@ -178,14 +178,14 @@ section ul li div:nth-child(2){
 
 .buttonDown{
     position: fixed;
-    left: 300px;
+    left: 80vw;
     top: 80vh;
 }
 
 .buttonUp{
-    top: 58vh;
+    top: 60vh;
     position: fixed;
-    left: 300px;
+    left: 80vw;
 }
 
 #keyboardPanel{
@@ -199,16 +199,17 @@ section ul li div:nth-child(2){
     grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 1px;
     grid-row-gap: 1px;
-    padding: 10px;
+    padding: 0px;
     max-width: 95vw;
     background-color: white;
 }
 
 .letterBtn{
     background-color: aquamarine;
-    font-size: 2em;
+    font-size: 1.1em;
     border: 1px solid black;
     border-radius: 20px;
+    color: black
 }
 
 input[type="text"]{
@@ -260,6 +261,13 @@ input[type="text"]{
         top: 65vh;
         position: fixed;
         left: 620px;
+    }
+    .letterBtn{
+        background-color: aquamarine;
+        font-size: 2em;
+        border: 1px solid black;
+        border-radius: 20px;
+        color: black
     }
  }
 @media (min-width: 1024px) { 
