@@ -80,7 +80,7 @@ document.querySelector('#app').innerHTML = `
         </form>
 `
 
-console.log('update main, realizando tests con el input en version movil')
+console.log('update main, realizando tests con el input en version movil v2')
 
 
 // =============================================================================================================================
@@ -104,7 +104,7 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
 // 2.4.- La mostramos en pantalla, con las letras ocultas
 // 2.5.- Escondemos el muñeco
         function iniciarNuevaPalabra(){
-            nuevaPalabra = palabras[Math.floor(Math.random() * palabras.length)]
+            nuevaPalabra = (palabras[Math.floor(Math.random() * palabras.length)]).toUpperCase()
             
             nuevaPalabraDividida = nuevaPalabra.split('')
             
@@ -129,7 +129,6 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
                 ${letrasErradas.map ((item) => `<div>${item}</div>`).join('')}
                 `
 
-            console.log(document.querySelector('#keyboard'))
         }
 
 // =============================================================================================================================
@@ -139,7 +138,7 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
 // 3.2 Ignoramos teclas especiales
         document.addEventListener('keydown', (event) => {
 
-            nuevaLetra = event.key
+            nuevaLetra = event.key.toUpperCase()
 
             if (teclasEspeciales.includes(event.key) || event.key.startsWith('F') || event.key.startsWith('arrow')){
                 return
@@ -243,7 +242,7 @@ document.querySelector('#keyboardBtn').addEventListener('click', () => {
             document.querySelector('#keyboard').addEventListener('input', (event)=>{
                 console.log(event.data)
                 
-                nuevaLetra = event.data
+                nuevaLetra = event.data.toUpperCase()
 
             if (teclasEspeciales.includes(event.data) || event.data.startsWith('F') || event.data.startsWith('arrow')){
                 return
