@@ -80,46 +80,9 @@ document.querySelector('#app').innerHTML = `
 
 
 
-// =============================================================================================================================
-// 1. Probamos funcionalidad al boton de teclado en la version de pantallas de móviles
-// =============================================================================================================================
-
-
-
-        document.querySelector('#keyboardBtn').addEventListener('click', () => {
-            keyboardOpen = !keyboardOpen
-            activarTeclado()
-        })
-
-        function activarTeclado(){
-            if(keyboardOpen){
-                document.querySelector('.header').classList.add('hide')
-                document.querySelector('#keyboardBtn .fa-solid').classList.remove('fa-keyboard')
-                document.querySelector('#keyboardBtn .fa-solid').classList.add('fa-xmark')
-                document.querySelector('#shareBtn').classList.add('hide')
-                document.querySelector('#keyboardBtn').classList.remove('buttonDown')
-                document.querySelector('#keyboardBtn').classList.add('buttonUp')
-                document.querySelector('#keyboardPanel').innerHTML = `
-                    ${letras.map((item) => 
-                        `<div class="letterBtn" id=${item.id}>${item.content}</div>`
-                    ).join('')}
-                    `
-                capturarLetraTecladoVirtual()
-            } else {
-                document.querySelector('.header').classList.remove('hide')
-                document.querySelector('#keyboardBtn .fa-solid').classList.remove('fa-xmark')
-                document.querySelector('#keyboardBtn .fa-solid').classList.add('fa-keyboard')
-                document.querySelector('#keyboardBtn').classList.remove('buttonUp')
-                document.querySelector('#keyboardBtn').classList.add('buttonDown')
-                document.querySelector('#keyboardPanel').innerHTML = ""
-
-            }
-        }
- 
-
 
 // =============================================================================================================================
-// 2. Cargamos una palabra nueva
+// 1. Cargamos una palabra nueva
 // =============================================================================================================================
 // 2.1.- Al cargar el documento, los contadores iran a 0
 // 2.2.- Se carga la nueva palabra
@@ -155,7 +118,7 @@ document.querySelector('#app').innerHTML = `
         }
 
 // =============================================================================================================================
-// 3. Captar la entrada del teclado
+// 2. Captar la entrada del teclado
 // =============================================================================================================================
 // 3.1 Ignoramos teclas numericas
 // 3.2 Ignoramos teclas especiales
@@ -176,7 +139,7 @@ document.querySelector('#app').innerHTML = `
         })
 
 // =============================================================================================================================
-// 4. Evaluar que la letra introducida no se haya usado antes
+// 3. Evaluar que la letra introducida no se haya usado antes
 // =============================================================================================================================
 
         function evaluarLetraUsada(){
@@ -236,7 +199,7 @@ document.querySelector('#app').innerHTML = `
             document.querySelector('#dibujo .hide').classList.remove('hide')
         }
 // =============================================================================================================================
-// 6. Revelar la letra correcta, contar las tetras, revelar al ganador
+// 5. Revelar la letra correcta, contar las tetras, revelar al ganador
 // =============================================================================================================================
 
         function revelarLetra(){
@@ -258,7 +221,46 @@ document.querySelector('#app').innerHTML = `
         }
 
 // =============================================================================================================================
-//  7. Versiones moviles con un teclado digital
+// 6. Probamos funcionalidad al boton de teclado en la version de pantallas de móviles
+// =============================================================================================================================
+
+
+
+        document.querySelector('#keyboardBtn').addEventListener('click', () => {
+            keyboardOpen = !keyboardOpen
+            activarTeclado()
+        })
+
+        function activarTeclado(){
+            if(keyboardOpen){
+                document.querySelector('.header').classList.add('hide')
+                document.querySelector('#keyboardBtn .fa-solid').classList.remove('fa-keyboard')
+                document.querySelector('#keyboardBtn .fa-solid').classList.add('fa-xmark')
+                document.querySelector('#shareBtn').classList.add('hide')
+                document.querySelector('#keyboardBtn').classList.remove('buttonDown')
+                document.querySelector('#keyboardBtn').classList.add('buttonUp')
+                document.querySelector('#keyboardPanel').innerHTML = `
+                    ${letras.map((item) => 
+                        `<div class="letterBtn" id=${item.id}>${item.content}</div>`
+                    ).join('')}
+                    `
+                capturarLetraTecladoVirtual()
+            } else {
+                document.querySelector('.header').classList.remove('hide')
+                document.querySelector('#keyboardBtn .fa-solid').classList.remove('fa-xmark')
+                document.querySelector('#keyboardBtn .fa-solid').classList.add('fa-keyboard')
+                document.querySelector('#keyboardBtn').classList.remove('buttonUp')
+                document.querySelector('#keyboardBtn').classList.add('buttonDown')
+                document.querySelector('#keyboardPanel').innerHTML = ""
+
+            }
+        }
+ 
+
+
+
+// =============================================================================================================================
+//  8. Versiones moviles con un teclado digital
 // =============================================================================================================================
 
         function capturarLetraTecladoVirtual() {
@@ -271,6 +273,8 @@ document.querySelector('#app').innerHTML = `
             });
             });
         }
+
+
 
         
 
