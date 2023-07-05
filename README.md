@@ -80,35 +80,3 @@ El código utiliza diferentes elementos del Document Object Model (DOM) para mos
 ### .top, .head, .leg, .arm, .torso: Elementos individuales del dibujo del ahorcado.
 ### #btnPanel: Contenedor del panel de botones.
 
-## Funciones del juego
-### Cargar una palabra nueva 
-En esta funcion, se selecciona una palabra del arreglo, se divide en letras y se muestra en pantalla escondida por un asterisco, ademas que se esconde el dibujo del muñeco
-```
- function iniciarNuevaPalabra(){
-            nuevaPalabra = (palabras[Math.floor(Math.random() * palabras.length)]).toUpperCase()
-            
-            nuevaPalabraDividida = nuevaPalabra.split('')
-            
-            document.querySelector('#wordContainer').innerHTML = `
-                    ${nuevaPalabraDividida.map((item) => `
-                            <div class='letra ${item}'>*</div>
-                            
-                            `).join('')}
-            `
-
-            const partesDelMuneco = document.querySelectorAll('.head, .leg, .arm, .torso')
-
-            partesDelMuneco.forEach((parte) => {
-                parte.classList.add('hide');
-            })
-
-            letrasUsadas = [];
-            letrasCorrectas = [];
-            letrasErradas = []
-
-            document.querySelector('.counterLetters').innerHTML = `
-                ${letrasErradas.map ((item) => `<div>${item}</div>`).join('')}
-                `
-
-        }
-```
