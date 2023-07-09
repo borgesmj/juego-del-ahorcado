@@ -1,7 +1,10 @@
 # 	:rocket: Documentación del código del juego del ahorcado
 Este documento proporciona una descripción detallada del código utilizado para implementar el juego del ahorcado en JavaScript. A continuación, se presentan las diferentes secciones del código y su funcionalidad.
 
-## Lenguajes utilizados:
+## :chains: Diagrama de flujo
+El diagrama de flujo base de este codigo lo puede conseguir visitando el siguiente [enlace](https://lucid.app/lucidchart/invitations/accept/inv_912789a5-c8ec-4592-b15c-28fa10d739c5)
+
+## :computer: Lenguajes utilizados:
 * JavaScript
 * HTML
 * CSS
